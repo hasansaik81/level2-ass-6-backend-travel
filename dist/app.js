@@ -3,25 +3,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const cors_1 = __importDefault(require("cors"));
 const express_1 = __importDefault(require("express"));
-const product_route_1 = require("./modules/products/product.route");
-const order_router_1 = require("./modules/order/order.router");
+const cors_1 = __importDefault(require("cors"));
+const routes_1 = __importDefault(require("./app/routes"));
+const globalErrorhandler_1 = __importDefault(require("./app/middlewares/globalErrorhandler"));
+const notFound_1 = __importDefault(require("./app/middlewares/notFound"));
 const app = (0, express_1.default)();
-// parser 
+// parser
 app.use(express_1.default.json());
-app.use((0, cors_1.default)());
-// get route  access 
-app.get("/", (_req, res) => {
-    res.send("welcome to e-Commarce Backend");
+app.use(express_1.default.urlencoded({ extended: true }));
+app.use((0, cors_1.default)({
+    origin: [
+        // '',
+        'http://localhost:3000',
+    ], // Allow your frontend URL
+    credentials: true, // Allow credentials to be included
+}));
+// application routes
+app.use('/api', routes_1.default);
+app.get('/', (req, res) => {
+    res.send('Ultimate Tripz Running!');
 });
-// routes 
-app.use("/api/products", product_route_1.productRoute);
-app.use("/api/orders", order_router_1.orderRoute);
-// app.get('/',(req,res)=>{
-//   res.send('500 is continue')  
-// })
-// app.listen(5000,()=>{
-//     console.log('server is running')
-// })
+app.use(globalErrorhandler_1.default);
+//Not Found
+app.use(notFound_1.default);
 exports.default = app;
+// https://travel-tips-eight.vercel.app/

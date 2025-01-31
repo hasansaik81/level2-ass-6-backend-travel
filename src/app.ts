@@ -1,26 +1,35 @@
+import express, { Application, Request, Response } from 'express'
+import cors from 'cors'
+import router from './app/routes'
+import globalErrorHandler from './app/middlewares/globalErrorhandler'
+import notFound from './app/middlewares/notFound'
+const app: Application = express()
 
-import cors from "cors"
-import express, { Request, Response } from "express"
-import { productRoute } from "./modules/products/product.route";
-import { orderRoute } from "./modules/order/order.router";
-const app=express();
+// parser
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(
+  cors({
+    origin: [
+      // '',
+      
+      'http://localhost:3000',
+    ], // Allow your frontend URL
+    credentials: true, // Allow credentials to be included
+  }),
+)
 
-// parser 
-app.use(express.json());
-app.use(cors());
+// application routes
+app.use('/api', router)
 
-// get route  access 
-app.get("/",(_req:Request,res:Response)=>{
-    res.send("welcome to e-Commarce Backend");
-});
+app.get('/', (req: Request, res: Response) => {
+  res.send('Ultimate Tripz Running!')
+})
+app.use(globalErrorHandler)
 
-// routes 
-app.use("/api/products",productRoute);
-app.use("/api/orders",orderRoute) ;
-// app.get('/',(req,res)=>{
-//   res.send('500 is continue')  
-// })
-// app.listen(5000,()=>{
-//     console.log('server is running')
-// })
-export default app;
+//Not Found
+app.use(notFound)
+
+export default app
+
+// https://travel-tips-eight.vercel.app/
