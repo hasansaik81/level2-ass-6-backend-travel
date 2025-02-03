@@ -1,6 +1,6 @@
 # Ultimate Tripz
 
-https://ultimate-tripz-backend-main-b1svl0oaq-hasans-projects-3bda48be.vercel.app
+live_url:https://level2-ass-6-backend-travel.vercel.app
 
 ### Technology used
 

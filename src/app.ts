@@ -23,7 +23,7 @@ app.use(
 app.use('/api', router)
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('Ultimate Tripz Running!')
+  res.send('Travel  Tripz Backend App Running!')
 })
 app.use(globalErrorHandler)
 
