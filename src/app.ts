@@ -13,7 +13,7 @@ app.use(
     origin: [
       // '',
       
-      'http://localhost:3000',
+      'https://travel-tips-eight.vercel.app','http://localhost:3000',
     ], // Allow your frontend URL
     credentials: true, // Allow credentials to be included
   }),
